@@ -4,7 +4,8 @@
   "description": "A starter template for express.js projects using objection.js and passport",
   "main": "src/index.js",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "helmet": "^3.15.0"
   },
   "devDependencies": {},
   "scripts": {
