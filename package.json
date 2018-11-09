@@ -1,0 +1,29 @@
+{
+  "name": "starter-postgres",
+  "version": "1.0.0",
+  "description": "A starter template for express.js projects using objection.js and passport",
+  "main": "src/index.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/programma-group/starter-postgres.git"
+  },
+  "keywords": [
+    "starter",
+    "objection",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/programma-group/starter-postgres/issues"
+  },
+  "homepage": "https://github.com/programma-group/starter-postgres#readme"
+}
