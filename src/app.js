@@ -1,5 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
+const initDb = require('./db');
+
+initDb();
 
 const app = express();
 app.use(helmet());
