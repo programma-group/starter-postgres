@@ -10,11 +10,12 @@ async function postUser(req, res) {
 
 async function getUsers(req, res) {
   const {
-    username,
+    username: usernameQuery,
     email,
     firstName: firstNameQuery,
     lastName: lastNameQuery,
   } = req.query;
+  const username = usernameQuery ? `%${usernameQuery}%` : undefined;
   const firstName = firstNameQuery ? `%${firstNameQuery}%` : undefined;
   const lastName = lastNameQuery ? `%${lastNameQuery}%` : undefined;
   const users = await User.query()
