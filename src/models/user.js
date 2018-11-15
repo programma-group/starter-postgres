@@ -1,7 +1,16 @@
 const Password = require('objection-password')();
-const { Model } = require('objection');
+const { Model, mixin } = require('objection');
+const uniqueMixin = require('objection-unique')({
+  fields: ['email', 'username'],
+  identifiers: ['id'],
+});
 
-class User extends Password(Model) {
+const userMixin = mixin(Model, [
+  Password,
+  uniqueMixin,
+]);
+
+class User extends userMixin {
   static get tableName() {
     return 'users';
   }
