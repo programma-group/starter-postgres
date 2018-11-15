@@ -28,7 +28,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "jest",
-    "migrate": "knex migrate:latest --knexfile=src/knexfile.js"
+    "migrate": "knex migrate:latest --knexfile=src/knexfile.js",
+    "generate-dotenv": "./src/scripts/generateEnvFiles.sh"
   },
   "repository": {
     "type": "git",
