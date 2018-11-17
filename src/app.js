@@ -2,10 +2,14 @@ const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const initDb = require('./db');
+const { init: initDbConnection } = require('./db');
 const userRoute = require('./routes/user');
 
-initDb();
+initDbConnection().catch((err) => {
+  // eslint-disable-next-line no-console
+  console.log(err);
+  process.exit(1);
+});
 
 const app = express();
 app.use(helmet());
