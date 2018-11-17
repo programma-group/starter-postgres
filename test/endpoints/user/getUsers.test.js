@@ -46,4 +46,19 @@ describe('GET /user', () => {
       })
       .expect(200);
   });
+  it('searchs user by email', async () => {
+    await goodRequest('?email=user@admin.com')
+      .expect(({ body }) => {
+        expect(body.ok).toBe(true);
+        expect(body.users).toHaveLength(1);
+        expect(body.users[0]).toMatchObject(expect.objectContaining({
+          id: 2,
+          username: 'user',
+          email: 'user@admin.com',
+          firstName: 'User',
+          lastName: 'LastName',
+        }));
+      })
+      .expect(200);
+  });
 });
