@@ -1,5 +1,10 @@
 const userFixtures = require('../fixtures/user.json');
 
+const setValTable = (knex, sequenceId, fixtures) => {
+  const maxId = Math.max(...fixtures.map(f => f.id));
+  return knex.raw('SELECT setval(?, ?)', [sequenceId, maxId + 1]);
+};
+
 /**
  * Truncates tables in order to put knex data
  * @returns {Promise} resolved on finished seeding
@@ -7,6 +12,7 @@ const userFixtures = require('../fixtures/user.json');
  */
 const truncateTables = async (knex) => {
   await knex('users').truncate();
+  await setValTable(knex, 'users_id_seq', userFixtures);
 };
 
 /**
