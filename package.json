@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "jest",
+    "test": "jest --runInBand --coverage --forceExit",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
     "migrate": "knex migrate:latest --knexfile=src/knexfile.js",
     "rollback-migrations": "knex migrate:rollback --knexfile=src/knexfile.js",
