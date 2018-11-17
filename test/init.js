@@ -13,6 +13,10 @@ beforeAll(async () => {
   await knexObject.migrate.latest({
     directory: path.resolve(__dirname, '..', 'src', 'migrations'),
   });
+});
+
+beforeEach(async () => {
+  await truncateTables(knexObject);
   await seedTestDatabase(knexObject);
 });
 
