@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`POST /user should return error if email is not present on the payload: email 1`] = `
+Object {
+  "email": Array [
+    Object {
+      "keyword": "required",
+      "message": "is a required property",
+      "params": Object {
+        "missingProperty": "email",
+      },
+    },
+  ],
+}
+`;
+
+exports[`POST /user should return error if firstName is not present on the payload: firstName 1`] = `
+Object {
+  "firstName": Array [
+    Object {
+      "keyword": "required",
+      "message": "is a required property",
+      "params": Object {
+        "missingProperty": "firstName",
+      },
+    },
+  ],
+}
+`;
+
+exports[`POST /user should return error if lastName is not present on the payload: lastName 1`] = `
+Object {
+  "lastName": Array [
+    Object {
+      "keyword": "required",
+      "message": "is a required property",
+      "params": Object {
+        "missingProperty": "lastName",
+      },
+    },
+  ],
+}
+`;
+
+exports[`POST /user should return error if password is not present on the payload: password 1`] = `
+Object {
+  "password": Array [
+    Object {
+      "keyword": "required",
+      "message": "is a required property",
+      "params": Object {
+        "missingProperty": "password",
+      },
+    },
+  ],
+}
+`;
+
+exports[`POST /user should return error if username is not present on the payload: username 1`] = `
+Object {
+  "username": Array [
+    Object {
+      "keyword": "required",
+      "message": "is a required property",
+      "params": Object {
+        "missingProperty": "username",
+      },
+    },
+  ],
+}
+`;
