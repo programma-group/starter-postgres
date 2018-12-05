@@ -1,10 +1,10 @@
 const express = require('express');
 const userController = require('../controllers/user');
-const { wrapperAsync } = require('../handlers/error');
+const { catchErrors } = require('../handlers/error');
 
 const router = express.Router();
 
-router.get('/', wrapperAsync(userController.getUsers));
-router.post('/', wrapperAsync(userController.postUser));
+router.get('/', catchErrors(userController.getUsers));
+router.post('/', catchErrors(userController.postUser));
 
 module.exports = router;

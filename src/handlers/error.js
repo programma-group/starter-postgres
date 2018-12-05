@@ -129,7 +129,7 @@ function errorHandler(err, res) {
 }
 
 // eslint-disable-next-line consistent-return
-const wrapperAsync = fn => async (req, res, next) => {
+const catchErrors = fn => async (req, res, next) => {
   try {
     await fn(req, res, next);
   } catch (err) {
@@ -138,5 +138,5 @@ const wrapperAsync = fn => async (req, res, next) => {
 };
 
 module.exports = {
-  wrapperAsync,
+  catchErrors,
 };
