@@ -86,10 +86,19 @@ const login = async (req, res) => {
   return res.json(formatResponse(true, { token }));
 };
 
+const passwordReset = async (req, res) => {
+  const { email } = req.body;
+  const UserModel = req.app.get('models.user');
+  const user = await UserModel.query().findOne({ email });
+  await user.generateResetToken();
+  return res.json('success');
+};
+
 module.exports = {
   validateRegister,
   register,
   validateLogin,
   prepareLogin,
   login,
+  passwordReset,
 };
