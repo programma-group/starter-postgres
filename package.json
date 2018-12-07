@@ -12,6 +12,7 @@
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.15.2",
+    "nodemailer": "^4.7.0",
     "objection": "^1.4.0",
     "objection-db-errors": "^1.0.0",
     "objection-password": "^2.0.0",
