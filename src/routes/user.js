@@ -4,7 +4,6 @@ const { catchErrors } = require('../handlers/error');
 
 const router = express.Router();
 
-router.get('/', catchErrors(userController.getUsers));
-router.post('/', catchErrors(userController.postUser));
+router.get('/profile', catchErrors(userController.getProfile));
 
 module.exports = router;
