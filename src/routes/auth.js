@@ -17,6 +17,7 @@ router.post(
   '/login',
   authController.validateLogin,
   bodyErrorsMiddleware,
+  catchErrors(authController.prepareLogin),
   catchErrors(authController.login),
 );
 
