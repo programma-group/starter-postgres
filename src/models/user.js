@@ -1,5 +1,6 @@
 const Password = require('objection-password')();
 const { Model, mixin } = require('objection');
+const crypto = require('crypto');
 const uniqueMixin = require('objection-unique')({
   fields: ['email', 'username'],
   identifiers: ['id'],
@@ -11,6 +12,10 @@ const userMixin = mixin(Model, [
 ]);
 
 class User extends userMixin {
+  static get useLimitInFirst() {
+    return true;
+  }
+
   static get tableName() {
     return 'users';
   }
@@ -57,6 +62,22 @@ class User extends userMixin {
         },
       },
     };
+  }
+
+  generateResetToken() {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(20, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const resetPasswordToken = buf.toString('hex');
+        const resetPasswordExpires = new Date(Date.now() + 86400000); // 1 day in the future
+        return this.$query().patch({
+          resetPasswordExpires,
+          resetPasswordToken,
+        }).then(resolve).catch(reject);
+      });
+    });
   }
 }
 
