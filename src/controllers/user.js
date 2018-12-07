@@ -1,36 +1,7 @@
-const User = require('../models/user');
+const { formatResponse } = require('../utils/common');
 
-async function postUser(req, res) {
-  const user = await User.query().insert(req.body);
-  return res.json({
-    ok: true,
-    user,
-  });
-}
-
-async function getUsers(req, res) {
-  const {
-    username: usernameQuery,
-    email,
-    firstName: firstNameQuery,
-    lastName: lastNameQuery,
-  } = req.query;
-  const username = usernameQuery ? `%${usernameQuery}%` : undefined;
-  const firstName = firstNameQuery ? `%${firstNameQuery}%` : undefined;
-  const lastName = lastNameQuery ? `%${lastNameQuery}%` : undefined;
-  const users = await User.query()
-    .skipUndefined()
-    .where('username', 'ilike', username)
-    .where('email', email)
-    .where('firstName', 'ilike', firstName)
-    .where('lastName', 'ilike', lastName);
-  return res.json({
-    ok: true,
-    users,
-  });
-}
+const getProfile = (req, res) => res.json(formatResponse(true, req.user.toJSON()));
 
 module.exports = {
-  getUsers,
-  postUser,
+  getProfile,
 };
