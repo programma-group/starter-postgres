@@ -30,6 +30,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "start:debug": "node --inspect src/index.js",
     "test": "jest --runInBand --coverage --forceExit",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
     "migrate": "knex migrate:latest --knexfile=src/knexfile.js",
