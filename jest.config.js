@@ -1,5 +1,6 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
+const path = require('path');
 
 module.exports = {
   // All imported modules in your tests should be mocked automatically
@@ -18,11 +19,15 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
+  collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information
   // should be collected
-  // collectCoverageFrom: null,
+  collectCoverageFrom: [
+    'src/**/*.js',
+    '!src/migrations/*.js',
+    '!src/index.js',
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -108,7 +113,7 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: 'test',
+  // rootDir: 'test',
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -124,7 +129,7 @@ module.exports = {
 
   // The path to a module that runs some code to configure or set up the testing framework
   // before each test
-  // setupTestFrameworkScriptFile: null,
+  setupTestFrameworkScriptFile: path.join(__dirname, 'test', 'init.js'),
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
