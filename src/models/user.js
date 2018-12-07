@@ -15,6 +15,12 @@ class User extends userMixin {
     return 'users';
   }
 
+  $formatJson(user) {
+    const userFormatted = super.$formatJson(user);
+    userFormatted.password = undefined;
+    return userFormatted;
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
