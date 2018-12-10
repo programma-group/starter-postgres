@@ -23,6 +23,8 @@ router.post(
 
 router.post(
   '/password/lost',
+  authController.checkEmail,
+  bodyErrorsMiddleware,
   catchErrors(authController.passwordLost),
 );
 

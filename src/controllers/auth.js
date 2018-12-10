@@ -109,4 +109,5 @@ module.exports = {
   prepareLogin,
   login,
   passwordLost,
+  checkEmail,
 };
