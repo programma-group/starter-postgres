@@ -86,7 +86,7 @@ const login = async (req, res) => {
   return res.json(formatResponse(true, { token }));
 };
 
-const passwordReset = async (req, res) => {
+const passwordLost = async (req, res) => {
   const { email } = req.body;
   const UserModel = req.app.get('models.user');
   const mail = req.app.get('mail');
@@ -108,5 +108,5 @@ module.exports = {
   validateLogin,
   prepareLogin,
   login,
-  passwordReset,
+  passwordLost,
 };

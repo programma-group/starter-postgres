@@ -22,8 +22,8 @@ router.post(
 );
 
 router.post(
-  '/password/reset',
-  catchErrors(authController.passwordReset),
+  '/password/lost',
+  catchErrors(authController.passwordLost),
 );
 
 module.exports = router;
