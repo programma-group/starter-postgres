@@ -16,8 +16,16 @@ class User extends userMixin {
     return true;
   }
 
+  static get virtualAttributes() {
+    return ['name'];
+  }
+
   static get tableName() {
     return 'users';
+  }
+
+  static get name() {
+    return `${this.firstName} ${this.lastName}`;
   }
 
   $formatJson(user) {
