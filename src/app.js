@@ -7,6 +7,7 @@ const { init: initDbConnection } = require('./db');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const User = require('./models/user');
+const mail = require('./utils/mail');
 
 initDbConnection().catch((err) => {
   // eslint-disable-next-line no-console
@@ -17,6 +18,7 @@ initDbConnection().catch((err) => {
 const app = express();
 const authMiddleware = passport.authenticate('jwt');
 app.set('models.user', User);
+app.set('mail', mail);
 app.use(helmet());
 app.use(cors());
 app.use(passport.initialize());
