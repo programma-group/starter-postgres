@@ -24,7 +24,7 @@ class User extends userMixin {
     return 'users';
   }
 
-  static get name() {
+  get name() {
     return `${this.firstName} ${this.lastName}`;
   }
 
