@@ -5,7 +5,7 @@ const { signToken } = require('../utils/auth');
 
 const checkEmail = check('email', 'That Email is not valid!')
   .isEmail().normalizeEmail({
-    remove_dots: false,
+    gmail_remove_dots: false,
     remove_extension: false,
     gmail_remove_subaddress: false,
   });
@@ -89,8 +89,16 @@ const login = async (req, res) => {
 const passwordReset = async (req, res) => {
   const { email } = req.body;
   const UserModel = req.app.get('models.user');
+  const mail = req.app.get('mail');
   const user = await UserModel.query().findOne({ email });
   await user.generateResetToken();
+  await mail.send({
+    email,
+    subject: 'Password Reset',
+    name: user.name,
+    token: user.resetPasswordToken,
+    filename: 'passwordReset',
+  });
   return res.json('success');
 };
 
