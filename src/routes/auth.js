@@ -28,4 +28,11 @@ router.post(
   catchErrors(authController.passwordLost),
 );
 
+router.post(
+  '/password/reset',
+  authController.validatePasswordReset,
+  bodyErrorsMiddleware,
+  catchErrors(authController.passwordReset),
+);
+
 module.exports = router;
