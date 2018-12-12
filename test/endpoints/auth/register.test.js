@@ -11,6 +11,7 @@ const makeRequest = (body = {}) => (
 const requiredFields = [
   'username',
   'password',
+  'passwordConfirm',
   'email',
   'firstName',
   'lastName',
@@ -27,5 +28,20 @@ describe('POST /auth/register', () => {
           },
         }));
       });
+  });
+  requiredFields.forEach((field) => {
+    const data = getOmittedData(field);
+    it(`should return error if ${field} is not present on the payload`, async () => {
+      await makeRequest(data)
+        .expect((res) => {
+          expect(res.body).toMatchObject(expect.objectContaining({
+            ok: false,
+            type: 'BodyValidationError',
+            message: 'There are validation errors',
+          }));
+          expect(res.body.errors).toMatchSnapshot(`${field} errors`);
+        })
+        .expect(400);
+    });
   });
 });
