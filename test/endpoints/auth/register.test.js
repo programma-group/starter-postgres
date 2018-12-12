@@ -59,4 +59,20 @@ describe('POST /auth/register', () => {
       expect(initialCount[0].count).toBe(finalCount[0].count);
     });
   });
+  it('should not allow email and username twice', async () => {
+    const data = getCorrectUserData();
+    await makeRequest(data).expect(200);
+    await makeRequest(data)
+      .expect((res) => {
+        expect(res.body).toMatchObject(expect.objectContaining({
+          ok: false,
+          type: 'ModelValidation',
+        }));
+        expect(Object.keys(res.body.data)).toHaveLength(2);
+        const { email, username } = res.body.data;
+        expect(email).toMatchSnapshot('email');
+        expect(username).toMatchSnapshot('username');
+      })
+      .expect(400);
+  });
 });

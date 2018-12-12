@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`POST /auth/register should not allow email and username twice: email 1`] = `
+Array [
+  Object {
+    "keyword": "unique",
+    "message": "email already in use.",
+  },
+]
+`;
+
+exports[`POST /auth/register should not allow email and username twice: username 1`] = `
+Array [
+  Object {
+    "keyword": "unique",
+    "message": "username already in use.",
+  },
+]
+`;
+
 exports[`POST /auth/register should return error if email is not present on the payload: email errors 1`] = `
 Array [
   Object {
