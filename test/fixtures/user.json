@@ -5,7 +5,9 @@
     "email" : "admin@admin.com",
     "password" : "$2y$12$GVNWZvrrKxPCIM/wPB9LMejGqLVfVXE7ieQzVJDhhak4tDEfbu6x2",
     "firstName" : "Admin",
-    "lastName" : "LastName"
+    "lastName" : "LastName",
+    "resetPasswordToken": null,
+    "resetPasswordExpires": null
   },
   {
     "id" : 2,
@@ -13,6 +15,18 @@
     "email" : "user@admin.com",
     "password" : "$2y$12$GVNWZvrrKxPCIM/wPB9LMejGqLVfVXE7ieQzVJDhhak4tDEfbu6x2",
     "firstName" : "User",
-    "lastName" : "LastName"
+    "lastName" : "LastName",
+    "resetPasswordToken": null,
+    "resetPasswordExpires": null
+  },
+  {
+    "id" : 3,
+    "username" : "reset_user",
+    "email" : "reset@admin.com",
+    "password" : "$2y$12$GVNWZvrrKxPCIM/wPB9LMejGqLVfVXE7ieQzVJDhhak4tDEfbu6x2",
+    "firstName" : "Reset",
+    "lastName" : "LastName",
+    "resetPasswordToken": "58eaa98bc6fc41004a9ade9a5607846acbc0a4b2",
+    "resetPasswordExpires": "2019-12-12 19:00:06"
   }
 ]
