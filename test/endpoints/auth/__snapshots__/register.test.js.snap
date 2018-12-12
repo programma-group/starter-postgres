@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`POST /auth/register should not allow email and username twice: email 1`] = `
+Array [
+  Object {
+    "keyword": "unique",
+    "message": "email already in use.",
+  },
+]
+`;
+
+exports[`POST /auth/register should not allow email and username twice: username 1`] = `
+Array [
+  Object {
+    "keyword": "unique",
+    "message": "username already in use.",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if email is not present on the payload: email errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "That Email is not valid!",
+    "param": "email",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if firstName is not present on the payload: firstName errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "First name cannot be blank!",
+    "param": "firstName",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if lastName is not present on the payload: lastName errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "Last name cannot be blank!",
+    "param": "lastName",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if password is not present on the payload: password errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "Password cannot be blank!",
+    "param": "password",
+  },
+  Object {
+    "location": "body",
+    "msg": "Passwords don't match",
+    "param": "passwordConfirm",
+    "value": "123456",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if passwordConfirm is not present on the payload: passwordConfirm errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "Confirmed password cannot be blank!",
+    "param": "passwordConfirm",
+  },
+  Object {
+    "location": "body",
+    "msg": "Passwords don't match",
+    "param": "passwordConfirm",
+  },
+]
+`;
+
+exports[`POST /auth/register should return error if username is not present on the payload: username errors 1`] = `
+Array [
+  Object {
+    "location": "body",
+    "msg": "Username cannot be empty",
+    "param": "username",
+  },
+]
+`;
