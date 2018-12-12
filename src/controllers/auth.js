@@ -1,4 +1,5 @@
 const { check } = require('express-validator/check');
+const { raw } = require('objection');
 const { sanitizeBody } = require('express-validator/filter');
 const { formatResponse } = require('../utils/common');
 const { signToken } = require('../utils/auth');
@@ -19,6 +20,11 @@ const customPasswordValidator = (value, { req }) => {
   return true;
 };
 
+const checkPasswordConfirm = [
+  check('passwordConfirm', 'Confirmed password cannot be blank!').not().isEmpty(),
+  check('passwordConfirm').custom(customPasswordValidator),
+];
+
 const validateRegister = [
   checkEmail,
   check('username', 'Username cannot be empty').not().isEmpty(),
@@ -27,8 +33,13 @@ const validateRegister = [
   check('lastName', 'Last name cannot be blank!').not().isEmpty(),
   sanitizeBody('lastName'),
   checkPassword,
-  check('passwordConfirm', 'Confirmed password cannot be blank!').not().isEmpty(),
-  check('passwordConfirm').custom(customPasswordValidator),
+  ...checkPasswordConfirm,
+];
+
+const validatePasswordReset = [
+  check('token').matches(/^[a-f0-9]{40}$/g),
+  checkPassword,
+  ...checkPasswordConfirm,
 ];
 
 const getUserModel = req => req.app.get('models.user');
@@ -86,7 +97,7 @@ const login = async (req, res) => {
   return res.json(formatResponse(true, { token }));
 };
 
-const passwordReset = async (req, res) => {
+const passwordLost = async (req, res) => {
   const { email } = req.body;
   const UserModel = req.app.get('models.user');
   const mail = req.app.get('mail');
@@ -99,14 +110,45 @@ const passwordReset = async (req, res) => {
     token: user.resetPasswordToken,
     filename: 'passwordReset',
   });
-  return res.json('success');
+  return res.json({
+    ok: true,
+    message: 'Password reset success',
+  });
+};
+
+const passwordReset = async (req, res) => {
+  const UserModel = req.app.get('models.user');
+  const { token, password } = req.body;
+  const user = await UserModel.query()
+    .where('resetPasswordToken', token)
+    .andWhere('resetPasswordExpires', '>', raw('now()')).first();
+  if (!user) {
+    return res.status(404).send({
+      ok: false,
+      type: 'NotFound',
+      message: 'User not found',
+    });
+  }
+  await user.$query().patch({
+    password,
+    resetPasswordToken: null,
+    resetPasswordExpires: null,
+  });
+  return res.status(200).json({
+    ok: true,
+    success: true,
+    message: `Password reset for user "${user.username}"`,
+  });
 };
 
 module.exports = {
   validateRegister,
+  validatePasswordReset,
   register,
   validateLogin,
   prepareLogin,
   login,
+  passwordLost,
+  checkEmail,
   passwordReset,
 };

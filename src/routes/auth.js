@@ -22,7 +22,16 @@ router.post(
 );
 
 router.post(
+  '/password/lost',
+  authController.checkEmail,
+  bodyErrorsMiddleware,
+  catchErrors(authController.passwordLost),
+);
+
+router.post(
   '/password/reset',
+  authController.validatePasswordReset,
+  bodyErrorsMiddleware,
   catchErrors(authController.passwordReset),
 );
 
