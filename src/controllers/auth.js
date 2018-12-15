@@ -36,7 +36,7 @@ const validateRegister = [
 ];
 
 const validatePasswordReset = [
-  check('token').matches(/^[a-f0-9]{40}$/g),
+  check('token').matches(/^[a-f0-9]{40}$/),
   checkPassword,
   ...checkPasswordConfirm,
 ];
