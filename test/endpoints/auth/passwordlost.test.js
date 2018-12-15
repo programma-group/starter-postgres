@@ -38,7 +38,7 @@ describe('POST /auth/password/lost', () => {
     expect(userObj.resetPasswordToken).toMatch(/^[a-f0-9]{40}$/);
     expect(userObj.resetPasswordExpires).toMatchObject(dateNextDay);
   });
-  it('should generate a 404 status if a token is not found', async () => {
+  it('should generate a 404 status if an email is not found', async () => {
     await makeRequest('non_existent@user.com')
       .expect((res) => {
         expect(res.body).toMatchObject({
@@ -48,5 +48,17 @@ describe('POST /auth/password/lost', () => {
         });
       })
       .expect(404);
+  });
+  it('should generate a 400 status if an email is invalid', async () => {
+    await makeRequest('invalid')
+      .expect((res) => {
+        expect(res.body).toMatchObject(expect.objectContaining({
+          ok: false,
+          message: 'There are validation errors',
+          type: 'BodyValidationError',
+        }));
+        expect(res.body.errors).toMatchSnapshot('errors');
+      })
+      .expect(400);
   });
 });
