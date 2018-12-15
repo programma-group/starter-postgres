@@ -38,4 +38,15 @@ describe('POST /auth/password/lost', () => {
     expect(userObj.resetPasswordToken).toMatch(/^[a-f0-9]{40}$/);
     expect(userObj.resetPasswordExpires).toMatchObject(dateNextDay);
   });
+  it('should generate a 404 status if a token is not found', async () => {
+    await makeRequest('non_existent@user.com')
+      .expect((res) => {
+        expect(res.body).toMatchObject({
+          ok: false,
+          type: 'NotFound',
+          message: 'User not found',
+        });
+      })
+      .expect(404);
+  });
 });
