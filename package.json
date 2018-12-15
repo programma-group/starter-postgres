@@ -14,6 +14,7 @@
     "jsonwebtoken": "^8.4.0",
     "juice": "^5.0.1",
     "knex": "^0.15.2",
+    "ms": "^2.1.1",
     "nodemailer": "^4.7.0",
     "objection": "^1.4.0",
     "objection-db-errors": "^1.0.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
+    "jest-date-mock": "^1.0.6",
     "supertest": "^3.3.0"
   },
   "scripts": {
