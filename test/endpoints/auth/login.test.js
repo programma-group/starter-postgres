@@ -64,4 +64,23 @@ describe('POST /auth/login', () => {
       })
       .expect(400);
   });
+  it('should not login if password field doesn\'t appear', async () => {
+    const data = {
+      email: 'admin@admin.com',
+    };
+    await makeRequest(data)
+      .expect((res) => {
+        expect(res.body).toMatchObject({
+          ok: false,
+          errors: [{
+            location: 'body',
+            param: 'password',
+            msg: 'Password cannot be blank!',
+          }],
+          message: 'There are validation errors',
+          type: 'BodyValidationError',
+        });
+      })
+      .expect(400);
+  });
 });
