@@ -45,4 +45,23 @@ describe('POST /auth/login', () => {
       })
       .expect(404);
   });
+  it('should not login if email field doesn\'t appear', async () => {
+    const data = {
+      password: '123456',
+    };
+    await makeRequest(data)
+      .expect((res) => {
+        expect(res.body).toMatchObject({
+          ok: false,
+          errors: [{
+            location: 'body',
+            param: 'email',
+            msg: 'That Email is not valid!',
+          }],
+          message: 'There are validation errors',
+          type: 'BodyValidationError',
+        });
+      })
+      .expect(400);
+  });
 });
