@@ -102,6 +102,13 @@ const passwordLost = async (req, res) => {
   const UserModel = req.app.get('models.user');
   const mail = req.app.get('mail');
   const user = await UserModel.query().findOne({ email });
+  if (!user) {
+    return res.status(404).send({
+      ok: false,
+      type: 'NotFound',
+      message: 'User not found',
+    });
+  }
   await user.generateResetToken();
   await mail.send({
     email,
