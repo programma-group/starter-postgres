@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { advanceTo, clear } = require('jest-date-mock');
 const app = require('../../../src/app');
+const User = require('../../../src/models/user');
 
 const makeRequest = email => (
   request(app)
@@ -15,8 +16,11 @@ jest.mock('nodemailer', () => ({
 }));
 
 describe('POST /auth/password/lost', () => {
+  const dateMock = new Date('2018-01-12 00:00:00 UTC');
+  const dateNextDay = new Date(+dateMock);
+  dateNextDay.setDate(dateMock.getDate() + 1);
   beforeEach(() => {
-    advanceTo(new Date('2018-01-12 00:00:00 UTC'));
+    advanceTo(dateMock);
   });
 
   afterEach(clear);
@@ -30,5 +34,8 @@ describe('POST /auth/password/lost', () => {
         });
       })
       .expect(200);
+    const userObj = await User.query().where('email', 'admin@admin.com').first();
+    expect(userObj.resetPasswordToken).toMatch(/^[a-f0-9]{40}$/);
+    expect(userObj.resetPasswordExpires).toMatchObject(dateNextDay);
   });
 });
