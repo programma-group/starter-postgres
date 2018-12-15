@@ -1,5 +1,4 @@
 const { check } = require('express-validator/check');
-const { raw } = require('objection');
 const { sanitizeBody } = require('express-validator/filter');
 const { formatResponse } = require('../utils/common');
 const { signToken } = require('../utils/auth');
@@ -128,7 +127,7 @@ const passwordReset = async (req, res) => {
   const { token, password } = req.body;
   const user = await UserModel.query()
     .where('resetPasswordToken', token)
-    .andWhere('resetPasswordExpires', '>', raw('now()')).first();
+    .andWhere('resetPasswordExpires', '>', (new Date()).toISOString()).first();
   if (!user) {
     return res.status(404).send({
       ok: false,
@@ -143,7 +142,6 @@ const passwordReset = async (req, res) => {
   });
   return res.status(200).json({
     ok: true,
-    success: true,
     message: `Password reset for user "${user.username}"`,
   });
 };
