@@ -4,6 +4,7 @@
   "description": "A starter template for express.js projects using objection.js and passport",
   "main": "src/index.js",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.1.0",
