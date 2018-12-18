@@ -31,6 +31,8 @@ class User extends userMixin {
   $formatJson(user) {
     const userFormatted = super.$formatJson(user);
     userFormatted.password = undefined;
+    userFormatted.resetPasswordExpires = undefined;
+    userFormatted.resetPasswordToken = undefined;
     return userFormatted;
   }
 
