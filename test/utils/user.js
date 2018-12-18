@@ -1,3 +1,6 @@
+const User = require('../../src/models/user');
+const { signToken } = require('../../src/utils/auth');
+
 const getCorrectUserData = () => ({
   username: 'inserted_user',
   password: '123456',
@@ -13,7 +16,13 @@ const getOmittedData = (field) => {
   return correctData;
 };
 
+const getSignedToken = async (username) => {
+  const u = await User.query().where('username', username).first();
+  return signToken(u.id);
+};
+
 module.exports = {
   getCorrectUserData,
   getOmittedData,
+  getSignedToken,
 };
