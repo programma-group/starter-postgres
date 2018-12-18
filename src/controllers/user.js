@@ -1,6 +1,9 @@
 const { formatResponse } = require('../utils/common');
 
-const getProfile = (req, res) => res.json(formatResponse(true, req.user.toJSON()));
+const getProfile = (req, res) => {
+  const jsonUser = req.user.toJSON();
+  return res.json(formatResponse(true, jsonUser));
+};
 
 module.exports = {
   getProfile,
