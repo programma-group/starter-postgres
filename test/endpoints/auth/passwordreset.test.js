@@ -50,4 +50,19 @@ describe('POST /auth/password/reset', () => {
     expect(bcrypt.compare(newPassword, user.password)).resolves.not.toBe(true);
     clear();
   });
+  it('should not allow a password change if password and passwordConfirm are not equal', async () => {
+    await makeRequest(goodToken, newPassword, 'other_password')
+      .expect((res) => {
+        expect(res.body).toMatchObject(expect.objectContaining({
+          ok: false,
+          message: 'There are validation errors',
+          type: 'BodyValidationError',
+        }));
+        expect(res.body.errors).toMatchSnapshot('errors');
+      });
+    const user = await User.query().where('username', 'reset_user').first();
+    expect(user.resetPasswordToken).not.toBeNull();
+    expect(user.resetPasswordExpires).not.toBeNull();
+    expect(bcrypt.compare(newPassword, user.password)).resolves.not.toBe(true);
+  });
 });
