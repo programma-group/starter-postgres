@@ -18,7 +18,8 @@ const getOmittedData = (field) => {
 
 const getSignedToken = async (username) => {
   const u = await User.query().where('username', username).first();
-  return signToken(u.id);
+  const token = await signToken(u.id);
+  return `Bearer ${token}`;
 };
 
 module.exports = {
