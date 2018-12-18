@@ -4,6 +4,7 @@
   "description": "A starter template for express.js projects using objection.js and passport",
   "main": "src/index.js",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.1.0",
@@ -14,6 +15,7 @@
     "jsonwebtoken": "^8.4.0",
     "juice": "^5.0.1",
     "knex": "^0.15.2",
+    "ms": "^2.1.1",
     "nodemailer": "^4.7.0",
     "objection": "^1.4.0",
     "objection-db-errors": "^1.0.0",
@@ -32,6 +34,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
+    "jest-date-mock": "^1.0.6",
     "supertest": "^3.3.0"
   },
   "scripts": {

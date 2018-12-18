@@ -1,5 +1,4 @@
 const { check } = require('express-validator/check');
-const { raw } = require('objection');
 const { sanitizeBody } = require('express-validator/filter');
 const { formatResponse } = require('../utils/common');
 const { signToken } = require('../utils/auth');
@@ -37,7 +36,7 @@ const validateRegister = [
 ];
 
 const validatePasswordReset = [
-  check('token').matches(/^[a-f0-9]{40}$/g),
+  check('token').matches(/^[a-f0-9]{40}$/),
   checkPassword,
   ...checkPasswordConfirm,
 ];
@@ -102,6 +101,13 @@ const passwordLost = async (req, res) => {
   const UserModel = req.app.get('models.user');
   const mail = req.app.get('mail');
   const user = await UserModel.query().findOne({ email });
+  if (!user) {
+    return res.status(404).send({
+      ok: false,
+      type: 'NotFound',
+      message: 'User not found',
+    });
+  }
   await user.generateResetToken();
   await mail.send({
     email,
@@ -121,7 +127,7 @@ const passwordReset = async (req, res) => {
   const { token, password } = req.body;
   const user = await UserModel.query()
     .where('resetPasswordToken', token)
-    .andWhere('resetPasswordExpires', '>', raw('now()')).first();
+    .andWhere('resetPasswordExpires', '>', (new Date()).toISOString()).first();
   if (!user) {
     return res.status(404).send({
       ok: false,
@@ -136,7 +142,6 @@ const passwordReset = async (req, res) => {
   });
   return res.status(200).json({
     ok: true,
-    success: true,
     message: `Password reset for user "${user.username}"`,
   });
 };
