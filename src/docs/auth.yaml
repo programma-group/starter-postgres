@@ -1,0 +1,142 @@
+paths:
+  /auth/register/:
+    post:
+      tags:
+        - User authentication
+      summary: creates a new user
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: sign up
+        description: It enables a user to create an account
+        required: false
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+            password-confirm:
+              type: string
+      responses:
+        201:
+          description: An object with user details and the login token
+        400:
+          description: An object with input errors
+
+  /auth/login/:
+    post:
+      tags:
+        - User authentication
+      summary: logs in a user
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: log in
+        description: It enables a user to log in to his account
+        required: false
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+      responses:
+        200:
+          description: An object with user details and the login token
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /auth/password/lost/:
+    post:
+      tags:
+        - Password management
+      summary: sends a lost password email
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: forgot password
+        description: It sends an email to the user if he is registered in the database
+        required: false
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: string
+      responses:
+        200:
+          description: An object with the sent data. If the backend finds the email, it will automatically send an email with the reset token
+
+  /auth/password/verify/:
+    post:
+      tags:
+        - Password management
+      summary: verifies the reset password token
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: forgot password
+        description: It verifies if the reset password token is still valid
+        required: false
+        schema:
+          type: "object"
+          properties:
+            token:
+              type: string
+      responses:
+        200:
+          description: An object detailing that the token is still valid
+        400:
+          description: An object detailing that the token is no longer valid
+
+  /auth/password/reset/:
+    post:
+      tags:
+        - Password management
+      summary: resets the password
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: forgot password
+        description: It verifies if the reset password token is still valid, resets the password and sets the tokens to undefined
+        required: false
+        schema:
+          type: "object"
+          properties:
+            token:
+              type: string
+            password:
+              type: string
+            password-confirm:
+              type: string
+      responses:
+        200:
+          description: An object detailing that the process has been a success
+        400:
+          description: An object with input errors
+
+definitions:
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      resetPasswordToken:
+        type: string
+      resetPasswordExpires:
+        type: string
+      created:
+        type: date
