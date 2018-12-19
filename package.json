@@ -44,6 +44,7 @@
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
     "migrate": "knex migrate:latest --knexfile=src/knexfile.js",
     "rollback-migrations": "knex migrate:rollback --knexfile=src/knexfile.js",
+    "eslint": "eslint . --ext .js",
     "generate-dotenv": "./src/utils/generateEnvFiles.sh"
   },
   "repository": {
