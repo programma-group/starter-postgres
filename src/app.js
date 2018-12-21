@@ -25,7 +25,9 @@ app.set('models.user', User);
 app.set('mail', mail);
 app.use(helmet());
 app.use(cors());
-app.use(expressWinston.logger(winstonConfig));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(expressWinston.logger(winstonConfig));
+}
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
