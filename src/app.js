@@ -3,8 +3,10 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
+const expressWinston = require('express-winston');
 const passport = require('./passport');
 const { init: initDbConnection } = require('./db');
+const { winstonConfig } = require('./utils/config');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const User = require('./models/user');
@@ -23,6 +25,7 @@ app.set('models.user', User);
 app.set('mail', mail);
 app.use(helmet());
 app.use(cors());
+app.use(expressWinston.logger(winstonConfig));
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
