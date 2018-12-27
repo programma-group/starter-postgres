@@ -46,6 +46,24 @@ Make a copy of `.env.example` as `.env` and update your application details and 
 - `SECRET`: Secret key used to encrypt JWT tokens
 - `URL`: The server's URL. Used by swagger docs explorer
 
+This in an example of a `.env` file
+
+```env
+DB_HOST=localhost
+DB_USER=starter
+DB_PASS=starter
+DB_NAME=starter
+DB_MIN_POOL=2
+DB_MAX_POOL=10
+DB_PORT=5432
+MAIL_HOST=my.host.com
+MAIL_PORT=2525
+MAIL_USER=myuser
+MAIL_PASSWORD=mypassword
+SECRET=test
+URL=localhost
+```
+
 ### Running the migrations
 
 Now, run the migrations and seed the database.
@@ -83,4 +101,3 @@ For contribution and feature requests, please create an [issue](https://github.c
 ## License
 
 starter-postgres is under [MIT License](LICENSE).
-
