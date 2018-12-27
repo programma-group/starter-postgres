@@ -68,7 +68,6 @@ URL=localhost
 
 Now, run the migrations and seed the database.
 
-
     $ npm run migrate
     $ npm run seed
 
