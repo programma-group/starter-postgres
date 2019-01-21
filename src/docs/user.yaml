@@ -1,0 +1,20 @@
+paths:
+  /user/profile/:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User profile
+      summary: gets the user profile
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: sign up
+        description: It gets the current user profile
+        required: false
+      responses:
+        201:
+          description: An object with user details
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
